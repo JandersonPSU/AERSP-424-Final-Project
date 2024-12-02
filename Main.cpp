@@ -74,7 +74,7 @@ void selectMap(vector<vector<char>>& grid)
     }
 }
 
-void placeShips(Player& player) 
+void placeShips(Player& player) // Bug Present in this
 {
     cout << player.name << ", place your ships on the grid." << endl;
     
@@ -286,6 +286,7 @@ void usePowerUp(Player& player, Player& opponent)
             }
         }
     } 
+
     else if (player.shipLengths == vector<int>{2, 2, 2, 4, 5}) // Old Ironsides
     { 
         char choice;
@@ -354,6 +355,7 @@ bool allShipsSunk(const Player& player)
 
 void displayRules()
 {
+    // Not the final rules just a rough place holder list for now
     cout << "Welcome to Battleship! Here are the rules:" << endl;
     cout << "1. Players take turns to place their ships on the grid." << endl;
     cout << "2. Each player has a set of ships to place, with different lengths." << endl;
