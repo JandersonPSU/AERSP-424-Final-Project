@@ -355,6 +355,7 @@ int main()
 
     // Select the map for both players
     selectMap(player1.grid);
+    printGrid(player1.grid);
     player2.grid = player1.grid;
 
     selectCaptain(player1);
