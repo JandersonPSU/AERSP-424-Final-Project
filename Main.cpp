@@ -1,11 +1,14 @@
 // This is the work of Jack Anderson
 #include <iostream>
 #include <vector>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
 const int GRID_SIZE = 10;
 const char WATER = '~';
+const char ISLAND = 'I';
 const char SHIP = 'S';
 const char HIT = 'X';
 const char MISS = 'O';
@@ -29,6 +32,41 @@ void printGrid(const vector<vector<char>>& grid)
             cout << cell << " ";
         }
         cout << endl;
+    }
+}
+
+void generateShatteredSea(vector<vector<char>>& grid) 
+{
+    srand(time(0)); // Use the current time to seed rand
+    int numIslands = rand() % 15 + 5; // Random number of islands between 5 and 20
+    
+  for (int i = 0; i < numIslands; ++i) 
+    {
+        int x = rand() % GRID_SIZE;
+        int y = rand() % GRID_SIZE;
+        grid[x][y] = ISLAND;
+    }
+}
+
+void selectMap(vector<vector<char>>& grid) 
+{
+    int choice;
+    cout << "Select a map:" << endl;
+    cout << "1. The Open Seas (All water)" << endl;
+    cout << "2. The Shattered Sea (Random islands)" << endl;
+    cin >> choice;
+
+    if (choice == 1) 
+    {
+        // The Open Seas - All water, no changes needed
+    } 
+    else if (choice == 2) 
+    {
+        generateShatteredSea(grid);
+    } 
+    else 
+    {
+        cout << "Invalid choice. Defaulting to The Open Seas." << endl;
     }
 }
 
@@ -124,7 +162,6 @@ void placeShips(Player& player)
                 }
                 
                 if (validPlacement) 
-                
                 {
                     for (int j = 0; j < length; ++j) 
                     {
@@ -315,6 +352,10 @@ int main()
 {
     Player player1("Player 1");
     Player player2("Player 2");
+
+    // Select the map for both players
+    selectMap(player1.grid);
+    player2.grid = player1.grid;
 
     selectCaptain(player1);
     selectCaptain(player2);
