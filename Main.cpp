@@ -1,6 +1,8 @@
 // This is the work of Jack Anderson
 #include <iostream>
 #include <vector>
+#include <thread>
+#include <chrono>
 #include <cstdlib>
 #include <ctime>
 
@@ -352,11 +354,9 @@ bool allShipsSunk(const Player& player)
 
 void displayRules()
 {
-    // Not final rules just a place holder for now
-    
-    cout << "Welcome to Battleship Reimagined! Here are the rules:" << endl;
-    cout << "1. Players will first select the map they want to play on." << endl;
-    cout << "2. Each player will the select a captian." << endl;
+    cout << "Welcome to Battleship! Here are the rules:" << endl;
+    cout << "1. Players take turns to place their ships on the grid." << endl;
+    cout << "2. Each player has a set of ships to place, with different lengths." << endl;
     cout << "3. Players take turns attacking the opponent's grid, trying to hit ships." << endl;
     cout << "4. Each captain has a special power-up that can be used once per match." << endl;
     cout << "5. The first player to sink all opponent ships wins the game." << endl;
@@ -379,7 +379,14 @@ int main()
     selectCaptain(player2);
 
     placeShips(player1);
+    cout << string(50, '\n');
+    cout << "Ships placed plase switch players" << endl;
+    cout << string(5, '\n');
+    
     placeShips(player2);
+    cout << string(50, '\n');
+    cout << "Ships placed plase switch players" << endl;
+    cout << string(5, '\n');
 
     bool gameOver = false;
     Player* currentPlayer = &player1;
@@ -405,6 +412,9 @@ int main()
                 } 
                 else 
                 {
+                    cout << "Switching turns. Please wait..." << endl;
+                    cout << string(50, '\n');
+                    this_thread::sleep_for(chrono::seconds(10));
                     swap(currentPlayer, opponentPlayer);
                 }
             }
