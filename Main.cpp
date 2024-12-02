@@ -27,9 +27,18 @@ struct Player
 
 void printGrid(const vector<vector<char>>& grid) 
 {
-    for (const auto& row : grid) 
+    cout << "  ";
+    for (int i = 0; i < GRID_SIZE; ++i) 
     {
-        for (char cell : row) 
+        cout << i << " ";
+    }
+    cout << endl;
+
+    for (int i = 0; i < grid.size(); ++i) 
+    {
+        cout << i << " ";
+
+        for (char cell : grid[i]) 
         {
             cout << cell << " ";
         }
@@ -74,10 +83,47 @@ void selectMap(vector<vector<char>>& grid)
     }
 }
 
-void placeShips(Player& player) // Bug Present in this
+bool isValidPlacement(Player& player, int x, int y, int length, char direction) 
+{
+    if (direction == 'h') 
+    {
+      if (y + length > GRID_SIZE) return false;
+        
+      for (int j = 0; j < length; ++j) 
+        {
+            if (player.grid[x][y + j] != WATER) return false;
+        }
+    } 
+    else if (direction == 'v') 
+    {
+      if (x + length > GRID_SIZE) return false;
+        
+      for (int j = 0; j < length; ++j) 
+        {
+            if (player.grid[x + j][y] != WATER) return false;
+        }
+    } 
+    else if (direction == 'd') 
+    {
+      if (x + length > GRID_SIZE || y + length > GRID_SIZE) return false;
+      for (int j = 0; j < length; ++j) 
+        {
+            if (player.grid[x + j][y + j] != WATER) return false;
+        }
+    } 
+    
+    else 
+    {
+        return false; // Invalid direction
+    }
+    
+    return true;
+}
+
+void placeShips(Player& player) 
 {
     cout << player.name << ", place your ships on the grid." << endl;
-    
+
     for (int i = 0; i < player.shipLengths.size(); ++i) 
     {
         int length = player.shipLengths[i];
@@ -86,101 +132,33 @@ void placeShips(Player& player) // Bug Present in this
         {
             int x, y;
             char direction;
-            cout << "Enter starting coordinates to place ship " << i + 1 << " of length " << length << " (row and column), and direction (h for horizontal, v for vertical, d for diagonal): " << endl;
+            cout << "Enter starting coordinates to place ship " << i + 1 << " of length " << length
+                 << " (row and column), and direction (h for horizontal, v for vertical, d for diagonal): " << endl;
             cin >> x >> y >> direction;
-            bool validPlacement = true;
-            if (direction == 'h') 
+
+            if (isValidPlacement(player, x, y, length, direction)) 
             {
-                if (y + length > GRID_SIZE) 
-                {
-                    validPlacement = false;
-                } 
-                
-                else 
-                {
-                    for (int j = 0; j < length; ++j) 
-                    {
-                        if (player.grid[x][y + j] != WATER) 
-                        {
-                            validPlacement = false;
-                            break;
-                        }
-                    }
-                }
-                
-                if (validPlacement) 
+                if (direction == 'h') 
                 {
                     for (int j = 0; j < length; ++j) 
                     {
                         player.grid[x][y + j] = SHIP;
                     }
-                }
-            } 
-            
-            else if (direction == 'v') 
-            {
-                if (x + length > GRID_SIZE) 
-                {
-                    validPlacement = false;
                 } 
-                
-                else 
-                {
-                    for (int j = 0; j < length; ++j) 
-                    {
-                        if (player.grid[x + j][y] != WATER) 
-                        {
-                            validPlacement = false;
-                            break;
-                        }
-                    }
-                }
-                if (validPlacement) 
+                else if (direction == 'v') 
                 {
                     for (int j = 0; j < length; ++j) 
                     {
                         player.grid[x + j][y] = SHIP;
                     }
-                }
-            } 
-            
-            else if (direction == 'd') 
-            {
-                if (x + length > GRID_SIZE || y + length > GRID_SIZE) 
-                {
-                    validPlacement = false;
                 } 
-                
-                else 
-                {
-                    
-                    for (int j = 0; j < length; ++j) 
-                    {
-                        if (player.grid[x + j][y + j] != WATER) 
-                        
-                        {
-                            validPlacement = false;
-                            break;
-                        }
-                    }
-                }
-                
-                if (validPlacement) 
+                else if (direction == 'd') 
                 {
                     for (int j = 0; j < length; ++j) 
                     {
                         player.grid[x + j][y + j] = SHIP;
                     }
                 }
-            } 
-            
-            else 
-            {
-                validPlacement = false;
-            }
-
-            if (validPlacement) 
-            {
                 shipPlaced = true;
                 printGrid(player.grid);
             } 
@@ -192,6 +170,7 @@ void placeShips(Player& player) // Bug Present in this
         }
     }
 }
+
 
 void selectCaptain(Player& player) 
 {
@@ -286,7 +265,6 @@ void usePowerUp(Player& player, Player& opponent)
             }
         }
     } 
-
     else if (player.shipLengths == vector<int>{2, 2, 2, 4, 5}) // Old Ironsides
     { 
         char choice;
@@ -355,7 +333,6 @@ bool allShipsSunk(const Player& player)
 
 void displayRules()
 {
-    // Not the final rules just a rough place holder list for now
     cout << "Welcome to Battleship! Here are the rules:" << endl;
     cout << "1. Players take turns to place their ships on the grid." << endl;
     cout << "2. Each player has a set of ships to place, with different lengths." << endl;
@@ -389,7 +366,7 @@ int main()
     cout << string(50, '\n');
     cout << "Ships placed plase switch players" << endl;
     cout << string(5, '\n');
-
+  
     bool gameOver = false;
     Player* currentPlayer = &player1;
     Player* opponentPlayer = &player2;
