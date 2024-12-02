@@ -350,8 +350,23 @@ bool allShipsSunk(const Player& player)
     return true;
 }
 
+void displayRules()
+{
+    // Not final rules just a place holder for now
+    
+    cout << "Welcome to Battleship Reimagined! Here are the rules:" << endl;
+    cout << "1. Players will first select the map they want to play on." << endl;
+    cout << "2. Each player will the select a captian." << endl;
+    cout << "3. Players take turns attacking the opponent's grid, trying to hit ships." << endl;
+    cout << "4. Each captain has a special power-up that can be used once per match." << endl;
+    cout << "5. The first player to sink all opponent ships wins the game." << endl;
+    cout << endl;
+}
+
 int main() 
 {
+    displayRules();
+  
     Player player1("Player 1");
     Player player2("Player 2");
 
