@@ -59,10 +59,12 @@ void selectMap(vector<vector<char>>& grid)
     if (choice == 1) 
     {
         // The Open Seas - All water, no changes needed
+        cout << "You have selected the map 'The Open Seas'" << endl;
     } 
     else if (choice == 2) 
     {
         generateShatteredSea(grid);
+        cout << "You have selected the map 'The Shattered Sea'" << endl;
     } 
     else 
     {
