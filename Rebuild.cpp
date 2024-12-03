@@ -33,12 +33,14 @@ public:
     bool allShipsSunk() const;
 };
 
-class Game {
+class Game 
+{
 public:
     Player player1;
     Player player2;
 
-    Game() : player1("Player 1"), player2("Player 2") {
+    Game() : player1("Player 1"), player2("Player 2") 
+    {
         srand(time(0)); // Seed rand
     }
 
