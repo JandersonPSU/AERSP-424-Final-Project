@@ -117,23 +117,34 @@ void Game::selectMap(vector<vector<char>>& grid)
     cout << endl;
 }
 
-void Game::selectMode() {
+void Game::selectMode() 
+{
     int choice;
-    do {
+    do 
+    {
         cout << "Select game mode:" << endl;
         cout << "1. Classic Battleship" << endl;
         cout << "2. Blitz Battleship" << endl;
         cin >> choice;
-        if (choice == 1) {
+        if (choice == 1) 
+        {
             blitzMode = false;
             cout << "You have selected 'Classic Battleship' mode." << endl;
-        } else if (choice == 2) {
+        } 
+        
+        else if (choice == 2) 
+        {
             blitzMode = true;
             cout << "You have selected 'Blitz Battleship' mode." << endl;
-        } else {
+        } 
+        
+        else 
+        {
             cout << "Invalid choice. Please select again." << endl;
         }
-    } while (choice != 1 && choice != 2);
+    } 
+    
+    while (choice != 1 && choice != 2);
     cout << endl;
 }
 
