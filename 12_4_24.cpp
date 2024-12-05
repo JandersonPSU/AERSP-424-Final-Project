@@ -175,9 +175,11 @@ public:
     Player* player2;
     bool blitzMode;
 
-    Game() : player1(nullptr), player2(nullptr), blitzMode(false) 
+    Game() : blitzMode(false) 
     {
         srand(time(0)); // Seed rand
+        player1 = new Jenkins(); // Default to Jenkins
+        player2 = new Ironsides(); // Default to Ironsides
     }
 
     ~Game(){
@@ -328,6 +330,7 @@ bool Game::isValidPlacement(Player& player, int x, int y, int length, char direc
 
 void Game::selectCaptain(Player*& player) 
 {
+    delete player;
     bool check=true;
     int choice;
     cout << player->name << ", choose your captain:" << endl;
