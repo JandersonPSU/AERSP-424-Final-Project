@@ -5,6 +5,7 @@
 #include <chrono>
 #include <cstdlib>
 #include <ctime>
+#include <limits>
 
 using namespace std;
 
@@ -50,7 +51,21 @@ public:
         //powerup start definition
         int x, y;
         cout << "Enter the center coordinates to search in a 1 radius area (row and column): " << endl;
-        cin >> x >> y;
+        while (true) 
+        {
+            cin >> x >> y ;
+            if (cin.fail()) 
+            { 
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                cout << "Invalid input. Please enter an integer."<<endl;
+            } 
+            else 
+            {
+                break; 
+            }
+        }
+    
         
         for (int i = -1; i <= 1; ++i) 
         {
@@ -97,9 +112,35 @@ public:
         int index;
 
         cout << "Enter 'r' to search an entire row or 'c' to search an entire column: " << endl;
-        cin >> choice;
+        while (true) 
+        {
+            cin >> choice ;
+            if (cin.fail()) 
+            { 
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                cout << "Invalid input. Please enter an integer."<<endl;
+            } 
+            else 
+            {
+                break; 
+            }
+        }
         cout << "Enter the index of the row or column to search (0 to " << GRID_SIZE - 1 << "): " << endl;
-        cin >> index;
+        while (true) 
+        {
+            cin >> index ;
+            if (cin.fail()) 
+            { 
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                cout << "Invalid input. Please enter an integer."<<endl;
+            } 
+            else 
+            {
+                break; 
+            }
+        }
         
         if (choice == 'r' && index >= 0 && index < GRID_SIZE) 
         {
@@ -250,7 +291,20 @@ void Game::selectMap(vector<vector<char>>& grid)
         cout << "Select a map:" << endl;
         cout << "1. The Open Seas (All water)" << endl;
         cout << "2. The Shattered Sea (Random islands)" << endl;
-        cin >> choice;
+        while (true) 
+        {
+            cin >> choice;
+            if (cin.fail()) 
+            { 
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                cout << "Invalid input. Please enter an integer."<<endl;
+            } 
+            else 
+            {
+                break; 
+            }
+        }
         if (choice == 1) 
         {
             cout << "You have selected the map 'The Open Seas'" << endl;
@@ -284,7 +338,20 @@ void Game::selectMode()
         cout << "Select game mode:" << endl;
         cout << "1. Classic Battleship" << endl;
         cout << "2. Blitz Battleship" << endl;
-        cin >> choice;
+        while (true) 
+        {
+            cin >> choice;
+            if (cin.fail()) 
+            { 
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                cout << "Invalid input. Please enter an integer."<<endl;
+            } 
+            else 
+            {
+                break; 
+            }
+        }
         if (choice == 1) 
         {
             blitzMode = false;
@@ -358,7 +425,20 @@ void Game::selectCaptain(Player*& player)
         
     // Checking input
     while (check){
-        cin >> choice;
+        while (true) 
+        {
+            cin >> choice;
+            if (cin.fail()) 
+            { 
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                cout << "Invalid input. Please enter an integer."<<endl;
+            } 
+            else 
+            {
+                break; 
+            }
+        }
         if (choice == 1) 
         {
             player = new Jenkins();
@@ -424,7 +504,20 @@ void Player::placeShips(Game& game)
             char direction;
             cout << "Enter starting coordinates to place ship " << i + 1 << " of length " << length
                  << " (row and column), and direction (h for horizontal, v for vertical, d for diagonal): " << endl;
-            cin >> x >> y >> direction;
+            while (true) 
+            {
+                cin >> x >> y >> direction;
+                if (cin.fail()) 
+                { 
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                    cout << "Invalid input. Please enter an integer."<<endl;
+                } 
+                else 
+                {
+                    break; 
+                }
+            }
 
             if (game.isValidPlacement(*this, x, y, length, direction)) 
             {
@@ -469,7 +562,20 @@ bool Player::takeTurn(Player& opponent)
 {
     int x, y;
     cout << name << ", enter coordinates to attack (row and column): " << endl;
-    cin >> x >> y;
+    while (true) 
+        {
+            cin >> x >> y;
+            if (cin.fail()) 
+            { 
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                cout << "Invalid input. Please enter an integer."<<endl;
+            } 
+            else 
+            {
+                break; 
+            }
+        }
 
     if (x < 0 || x >= GRID_SIZE || y < 0 || y >= GRID_SIZE) 
     {
@@ -571,6 +677,8 @@ void Game::start()
         )";
 
         cout << currentPlayer->name << "'s turn:" << endl;
+        cout<<yourself<<endl;
+        printGrid(currentPlayer->grid);
         cout << opponent<<endl;
         printGrid(currentPlayer->guessGrid);
 
@@ -578,7 +686,16 @@ void Game::start()
         {
             char action;
             cout << "Enter 'a' to attack or 'p' to use your power-up: " << endl;
+            while (true) {
             cin >> action;
+            if (cin.fail()) { 
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                cout << "Invalid input. Please enter an integer."<<endl;
+            } else {
+                break; 
+            }
+            }
 
             if (action == 'a') 
             {
