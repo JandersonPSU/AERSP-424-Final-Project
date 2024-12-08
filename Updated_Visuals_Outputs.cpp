@@ -119,7 +119,7 @@ public:
             { 
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-                cout << "Invalid input. Please enter an integer."<<endl;
+                cout << "Invalid input. Please enter a character."<<endl;
             } 
             else 
             {
@@ -511,7 +511,7 @@ void Player::placeShips(Game& game)
                 { 
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-                    cout << "Invalid input. Please enter an integer."<<endl;
+                    cout << "Invalid input. Please enter two integers and a character."<<endl;
                 } 
                 else 
                 {
@@ -691,7 +691,7 @@ void Game::start()
             if (cin.fail()) { 
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-                cout << "Invalid input. Please enter an integer."<<endl;
+                cout << "Invalid input. Please enter a character."<<endl;
             } else {
                 break; 
             }
