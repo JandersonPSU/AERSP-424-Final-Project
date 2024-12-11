@@ -331,7 +331,7 @@ bool allShipsSunk(const Player& player)
     return true;
 }
 
-void displayRules()
+void displayRules() // Place Holder For right now
 {
     cout << "Welcome to Battleship! Here are the rules:" << endl;
     cout << "1. Players take turns to place their ships on the grid." << endl;
