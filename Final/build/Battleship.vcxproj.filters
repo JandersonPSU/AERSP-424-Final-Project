@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\pbach\OneDrive\Desktop\SchoolWork\Fall24\AERSP424\Project\Github\AERSP-424-Final-Project\Final\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\pbach\OneDrive\Desktop\SchoolWork\Fall24\AERSP424\Project\Github\AERSP-424-Final-Project\Final\src\game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\pbach\OneDrive\Desktop\SchoolWork\Fall24\AERSP424\Project\Github\AERSP-424-Final-Project\Final\src\player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\pbach\OneDrive\Desktop\SchoolWork\Fall24\AERSP424\Project\Github\AERSP-424-Final-Project\Final\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{52FC2B38-3CFB-379C-95F6-47C224CA70FF}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

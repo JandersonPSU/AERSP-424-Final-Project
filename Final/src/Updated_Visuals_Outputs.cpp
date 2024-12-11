@@ -641,14 +641,12 @@ void Game::start()
     // Place ships
     
     player1->placeShips(*this);
-    this_thread::sleep_for(chrono::seconds(5));
     cout << string(50, '\n');
     cout << "Ships placed plase switch players" << endl;
     cout << string(5, '\n');
     this_thread::sleep_for(chrono::seconds(5));
 
     player2->placeShips(*this);
-    this_thread::sleep_for(chrono::seconds(5));
     cout << string(50, '\n');
     cout << "Ships placed plase switch players" << endl;
     cout << string(5, '\n');
@@ -734,13 +732,11 @@ void Game::start()
         if (opponentPlayer->allShipsSunk()) 
         {
             cout << currentPlayer->name << " wins! All opponent ships have been sunk." << endl;
-            this_thread::sleep_for(chrono::seconds(20));
             gameOver = true;
         } 
         
         else 
         {
-            this_thread::sleep_for(chrono::seconds(5));
             cout << string(50, '\n');
             cout << "Switching turns. Please hand device to other player..." << endl;
             cout << string(5, '\n');
