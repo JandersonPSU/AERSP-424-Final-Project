@@ -23,7 +23,7 @@
 [23:25:31] Jenkins: chose attack
 [23:25:41] Ironsides: unsuccessful hit (4, 7)
 [23:25:41] Ironsides: chose attack
-[23:25:47] Jenkins: using powerup
+[23:25:47] Jenkins: using power-up
 [23:25:51] Jenkins: successful hit (8, 5)
 [23:25:51] Jenkins: chose attack
 [23:26:12] Ironsides: using power-up
