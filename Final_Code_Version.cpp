@@ -7,6 +7,7 @@
 #include <cstdlib>    // For rand(), srand()
 #include <ctime>      // For time() seed used by srand()
 #include <limits>     // For std::numeric_limits used in input validation
+#include <fstream>    // For ofstream
 
 using namespace std;  // Use the standard namespace for convenience
 
@@ -18,6 +19,56 @@ const char SHIP = 'S';    // Represents a ship cell
 const char HIT = 'X';     // Represents a hit cell
 const char MISS = 'O';    // Represents a miss cell
 const int BLITZ_TIME_LIMIT = 10; // In blitz mode, each turn is limited to 10 seconds
+
+// creating a funciton which will allow for logging of game events, with potential to record the message, player name, x and y coords and ship direction
+ofstream logfile;
+void event(const string& message, const string& name = "Console", int x = -1, int y = -1, char direction = ' ') 
+{
+    // makes sure it only creates the fie once or else it will keep making new files each move
+    if (!logfile.is_open())
+    {
+        // get the current hour, min, second
+        time_t tnow = time(0);
+        tm* tinfo = localtime(&tnow);
+
+        // get a timestamp
+        char timestamp[9];  
+        strftime(timestamp, sizeof(timestamp), "%H_%M_%S", tinfo); 
+
+        // name the file based off the timestamp so it doesnt overwrite previous files (unless you happen to make the file at the same time a different day which is unlikely)
+        string filename = "GameLog_" + string(timestamp) + ".txt";  // Add underscore for clearer filename
+
+        // append the file
+        logfile.open(filename, ios::app);
+    }
+
+    // now getting times and timestamp for the time an event occurs to be printed in the file next to the event
+    time_t tnow = time(0);
+    tm* tinfo = localtime(&tnow);
+    char timestamp[9];  
+    strftime(timestamp, sizeof(timestamp), "%H:%M:%S", tinfo); 
+
+    // print the timestamp in the file
+    logfile << "[" << timestamp << "] " << name << ": ";
+
+    // see if the message parameter is satisfied or not so it can print a blank message
+    if (!message.empty()) {
+        logfile << message;
+    }
+
+    // checks to see if an x or y is provided
+    if (x != -1 && y != -1) 
+    {
+        logfile << " (" << x << ", " << y << ")";
+    }
+
+    // checks to see if a direciton is provided
+    if (direction != ' ') 
+    {
+        logfile << " Direction: " << direction;
+    }
+    logfile << endl;
+}
 
 class Player; // Forward declaration of Player so we can use Player* in Game
 
@@ -207,12 +258,14 @@ void Game::selectMap(vector<vector<char>>& grid)
         if (choice == 1) 
         {
             cout << "You have selected the map 'The Open Seas'" << endl;
+            event("the Open Seas map was chosen");
         } 
         
         else if (choice == 2) 
         {
             generateShatteredSea(grid);                      // Generate islands
             cout << "You have selected the map 'The Shattered Sea'" << endl;
+            event("the Shattered Sea map was chosen");
         } 
         
         else 
@@ -250,12 +303,14 @@ void Game::selectMode()
         {
             blitzMode = false;                      // Classic mode
             cout << "You have selected 'Classic Battleship' mode." << endl;
+            event("classic mode was selected");
         } 
         
         else if (choice == 2) 
         {
             blitzMode = true;                       // Blitz mode
             cout << "You have selected 'Blitz Battleship' mode." << endl;
+            event("blitz mode was selected");
         } 
         
         else 
@@ -355,6 +410,7 @@ void Game::selectCaptain(Player*& player)
     }
     
     cout << player->name << " has been chosen as captain!" << endl;
+    event("chosen captain", player->name);
 }
 
 void Game::printGrid(const vector<vector<char>>& grid) 
@@ -386,8 +442,11 @@ void Game::printGrid(const vector<vector<char>>& grid)
 
 void Game::start() 
 {
+    event("game initialized");
+
     // The main game sequence: from setup to the turn-taking loop until someone wins
     displayRules();                                 // Show rules first
+    
 
     // Players share the same map layout: first choose map for player1
     selectMap(player1->grid);
@@ -455,6 +514,7 @@ void Game::start()
             {
                 // If out of time, switch turns
                 cout << "Time's up! Switching turns." << endl; 
+                event("time limit reached, switching");
                 this_thread::sleep_for(chrono::seconds(5));
                 cout << string(50, '\n');
                 turnComplete = true;
@@ -481,6 +541,7 @@ void Game::start()
                     if (blitzMode && elapsedTime >= BLITZ_TIME_LIMIT) 
                     {
                         cout << "Time's up! Switching turns." << endl;
+                        event("time limit reached, switching");
                         this_thread::sleep_for(chrono::seconds(5));
                         cout << string(100, '\n');
                         turnComplete = true;
@@ -504,6 +565,7 @@ void Game::start()
                     elapsedTime = chrono::duration_cast<chrono::seconds>(currentTime - startTime).count();
                     if (blitzMode && elapsedTime >= BLITZ_TIME_LIMIT) {
                         cout << "Time's up! Switching turns." << endl;
+                        event("time limit reached, switching");
                         cout << string(50, '\n');
                         this_thread::sleep_for(chrono::seconds(5));
                         turnComplete = true;
@@ -531,6 +593,7 @@ void Game::start()
                 if (elapsedTime >= BLITZ_TIME_LIMIT) 
                 {
                     cout << "Time's up! Switching turns." << endl;
+                    event("time limit reached, switching");
                     this_thread::sleep_for(chrono::seconds(5));
                     cout << string(100, '\n');
                     turnComplete = true;
@@ -547,6 +610,8 @@ void Game::start()
         if (opponentPlayer->allShipsSunk()) 
         {
             cout << currentPlayer->name << " wins! All opponent ships have been sunk." << endl;
+            event("has won the game", currentPlayer->name);
+            event("game is now terminated");
             this_thread::sleep_for(chrono::seconds(20));
             gameOver = true;
         } 
@@ -593,6 +658,7 @@ void Player::placeShips(Game& game)
             // Check if placement is valid using Game's method
             if (game.isValidPlacement(*this, x, y, length, direction)) 
             {
+                event("placed ship", name, x, y, direction);
                 // Place ship based on direction
                 if (direction == 'h') // Horizontal Placement
                 {
@@ -650,6 +716,7 @@ bool Player::takeTurn(Game& game, Player& opponent, bool blitzMode, chrono::stea
 {
     // Prompt player for attack coordinates
     int x, y;
+    event("chose attack", name);
     cout << name << ", enter coordinates to attack (row and column): " << endl;
     if (!game.timedInput(x, blitzMode, startTime)) return true; // If time up, end turn
     if (!game.timedInput(y, blitzMode, startTime)) return true; // If time up, end turn
@@ -667,6 +734,7 @@ bool Player::takeTurn(Game& game, Player& opponent, bool blitzMode, chrono::stea
         cout << "It's a hit!" << endl;
         opponent.grid[x][y] = HIT;
         guessGrid[x][y] = HIT;
+        event("successful hit", name, x, y);
         return true; // Turn completes successfully
     } 
     
@@ -675,6 +743,7 @@ bool Player::takeTurn(Game& game, Player& opponent, bool blitzMode, chrono::stea
         cout << "You missed." << endl;
         opponent.grid[x][y] = MISS;
         guessGrid[x][y] = MISS;
+        event("unsuccessful hit", name, x, y);
         return true; // Turn completes with a miss
     } 
     
@@ -697,9 +766,11 @@ bool Jenkins::usePowerUp(Game& game, Player& opponent, bool blitzMode, chrono::s
 
     usedPowerUp = true;
     cout << name << " is using their power-up!" << endl;
+    event("using power-up radius search", name);
 
     int x, y;
     cout << "Enter the center coordinates to search in a 1 radius area (row and column): " << endl;
+    event("searching in a 1 radius area", name);
     if (!game.timedInput(x, blitzMode, startTime)) return true; // If time out, turn ends
     if (!game.timedInput(y, blitzMode, startTime)) return true; // If time out, turn ends
 
@@ -742,6 +813,7 @@ bool Ironsides::usePowerUp(Game& game, Player& opponent, bool blitzMode, chrono:
 
     usedPowerUp = true;
     cout << name << " is using their power-up!" << endl;
+    event("using power-up row or colum search");
 
     char choice;
     int index;
@@ -814,6 +886,7 @@ bool Steven::usePowerUp(Game& game, Player& opponent, bool blitzMode, chrono::st
         return false;
     }
 
+    event("using power-up 3 attacks", name);
     cout << name << " is using their power-up!" << endl;
     cout << "Three attacks remaining" << endl;
     takeTurn(game, opponent, blitzMode, startTime); // 1st attack

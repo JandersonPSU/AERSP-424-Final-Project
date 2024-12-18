@@ -1,0 +1,23 @@
+[10:41:13] Console: game initialized
+[10:41:17] Console: the Open Seas map was chosen
+[10:41:18] Jenkins: chosen captain
+[10:41:18] Ironsides: chosen captain
+[10:41:19] Console: classic mode was selected
+[10:41:27] Jenkins: placed ship (5, 5) Direction: v
+[10:41:45] Jenkins: placed ship (9, 5) Direction: h
+[10:41:48] Jenkins: placed ship (8, 5) Direction: h
+[10:41:55] Jenkins: placed ship (6, 5) Direction: h
+[10:41:57] Jenkins: placed ship (7, 4) Direction: h
+[10:42:12] Ironsides: placed ship (9, 5) Direction: h
+[10:42:15] Ironsides: placed ship (8, 5) Direction: h
+[10:42:17] Ironsides: placed ship (7, 5) Direction: h
+[10:42:19] Ironsides: placed ship (6, 5) Direction: h
+[10:42:21] Ironsides: placed ship (5, 5) Direction: h
+[10:42:37] Jenkins: chose attack
+[10:42:40] Jenkins: successful hit (5, 5)
+[10:42:52] Ironsides: chose attack
+[10:42:59] Ironsides: successful hit (5, 5)
+[10:43:11] Jenkins: using power-up
+[10:43:11] Jenkins: searching in a 1 radius area (32760, 2021753713)
+[10:43:35] Console: using power-up
+[10:43:44] Ironsides: searching colum
