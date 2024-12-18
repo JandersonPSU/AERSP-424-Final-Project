@@ -1,0 +1,10 @@
+^C:\USERS\PBACH\ONEDRIVE\DESKTOP\SCHOOLWORK\FALL24\AERSP424\PROJECT\GITHUB\AERSP-424-FINAL-PROJECT\12_18_FINAL\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/pbach/OneDrive/Desktop/SchoolWork/Fall24/AERSP424/Project/Github/AERSP-424-Final-Project/12_18_Final -BC:/Users/pbach/OneDrive/Desktop/SchoolWork/Fall24/AERSP424/Project/Github/AERSP-424-Final-Project/12_18_Final/build --check-stamp-file C:/Users/pbach/OneDrive/Desktop/SchoolWork/Fall24/AERSP424/Project/Github/AERSP-424-Final-Project/12_18_Final/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

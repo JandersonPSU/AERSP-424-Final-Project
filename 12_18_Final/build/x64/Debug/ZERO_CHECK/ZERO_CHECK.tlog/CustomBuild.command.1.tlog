@@ -1,0 +1,10 @@
+^C:\USERS\PBACH\ONEDRIVE\DESKTOP\SCHOOLWORK\FALL24\AERSP424\PROJECT\GITHUB\AERSP-424-FINAL-PROJECT\12_18_FINAL\BUILD\CMAKEFILES\A1777004AD69B82D150AFDBFD1956E23\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/pbach/OneDrive/Desktop/SchoolWork/Fall24/AERSP424/Project/Github/AERSP-424-Final-Project/12_18_Final -BC:/Users/pbach/OneDrive/Desktop/SchoolWork/Fall24/AERSP424/Project/Github/AERSP-424-Final-Project/12_18_Final/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/pbach/OneDrive/Desktop/SchoolWork/Fall24/AERSP424/Project/Github/AERSP-424-Final-Project/12_18_Final/build/Battleship.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

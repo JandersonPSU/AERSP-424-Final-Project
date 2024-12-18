@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\pbach\OneDrive\Desktop\SchoolWork\Fall24\AERSP424\Project\Github\AERSP-424-Final-Project\12_18_Final\src\EventLogger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\pbach\OneDrive\Desktop\SchoolWork\Fall24\AERSP424\Project\Github\AERSP-424-Final-Project\12_18_Final\src\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\pbach\OneDrive\Desktop\SchoolWork\Fall24\AERSP424\Project\Github\AERSP-424-Final-Project\12_18_Final\src\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\pbach\OneDrive\Desktop\SchoolWork\Fall24\AERSP424\Project\Github\AERSP-424-Final-Project\12_18_Final\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\pbach\OneDrive\Desktop\SchoolWork\Fall24\AERSP424\Project\Github\AERSP-424-Final-Project\12_18_Final\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{9945EDCE-9790-30C2-910C-BF72D00937B9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

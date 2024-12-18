@@ -1,0 +1,21 @@
+[13:44:28] Console: game initialized
+[13:44:31] Console: the Open Seas map was chosen
+[13:44:32] Jenkins: chosen captain
+[13:44:33] Jenkins: chosen captain
+[13:44:34] Console: classic mode was selected
+[13:44:38] Jenkins: placed ship (1, 1) Direction: h
+[13:44:39] Jenkins: placed ship (2, 2) Direction: h
+[13:44:40] Jenkins: placed ship (3, 3) Direction: h
+[13:44:40] Jenkins: placed ship (4, 4) Direction: h
+[13:44:41] Jenkins: placed ship (5, 5) Direction: h
+[13:44:55] Jenkins: placed ship (1, 1) Direction: h
+[13:44:58] Jenkins: placed ship (2, 2) Direction: h
+[13:44:59] Jenkins: placed ship (3, 3) Direction: h
+[13:45:00] Jenkins: placed ship (4, 4) Direction: h
+[13:45:02] Jenkins: placed ship (5, 5) Direction: h
+[13:45:16] Jenkins: using power-up radius search
+[13:45:16] Jenkins: searching in a 1 radius area
+[13:45:31] Jenkins: chose attack
+[13:45:33] Jenkins: successful hit (2, 2)
+[13:46:16] Jenkins: chose attack
+[13:46:19] Jenkins: successful hit (3, 3)

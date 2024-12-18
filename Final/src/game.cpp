@@ -258,18 +258,18 @@ void Game::start()
     // Place ships
     
     player1->placeShips(*this);
-    this_thread::sleep_for(chrono::seconds(5));
+    this_thread::sleep_for(chrono::seconds(1));
     cout << string(50, '\n');
     cout << "Ships placed plase switch players" << endl;
     cout << string(5, '\n');
-    this_thread::sleep_for(chrono::seconds(5));
+    this_thread::sleep_for(chrono::seconds(1));
 
     player2->placeShips(*this);
-    this_thread::sleep_for(chrono::seconds(5));
+    this_thread::sleep_for(chrono::seconds(1));
     cout << string(50, '\n');
     cout << "Ships placed plase switch players" << endl;
     cout << string(5, '\n');
-    this_thread::sleep_for(chrono::seconds(5));
+    this_thread::sleep_for(chrono::seconds(1));
 
     // Main game loop
     bool gameOver = false;
@@ -357,11 +357,11 @@ void Game::start()
         
         else 
         {
-            this_thread::sleep_for(chrono::seconds(5));
+            this_thread::sleep_for(chrono::seconds(1));
             cout << string(50, '\n');
             cout << "Switching turns. Please hand device to other player..." << endl;
             cout << string(5, '\n');
-            this_thread::sleep_for(chrono::seconds(5));
+            this_thread::sleep_for(chrono::seconds(1));
             swap(currentPlayer, opponentPlayer);
 
         }
