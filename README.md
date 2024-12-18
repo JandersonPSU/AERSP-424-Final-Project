@@ -5,6 +5,16 @@ The Group Members for this project are Jack Anderson, Peter Bachman, Sean Marino
 ChatGPT Useage
 ChatGPT was used during the debugging process for blitz mode and when creating the code comments. 
 
-How to compile the Code (Important to note is that the compiling for this project was designed and tested on Windows machines)
+How to compile the Code (Important to note is that the compiling for this project was designed and tested on Windows machines):
 
-Where is the executable
+Compiled using CMake using the CMakeLists.txt file and running the following lines:
+
+In the command line:
+  mkdir build
+  cd build
+  cmake ..
+  cmake --build .
+
+Executable Location:
+
+12_18_Final/build/Debug/Battleship.exe
