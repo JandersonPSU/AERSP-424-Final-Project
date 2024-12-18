@@ -1,0 +1,37 @@
+%%%%%%%%%%%%%%%%%%%%%%SAMPLE GAME LOG%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[23:23:07] Console: game initialized
+[23:23:11] Console: the Open Seas map was chosen
+[23:23:14] Ironsides: chosen captain
+[23:23:16] Jenkins: chosen captain
+[23:23:19] Console: classic mode was selected
+[23:23:25] Ironsides: placed ship (2, 3) Direction: h
+[23:23:27] Ironsides: placed ship (5, 6) Direction: d
+[23:23:29] Ironsides: placed ship (8, 5) Direction: h
+[23:23:32] Ironsides: placed ship (9, 3) Direction: h
+[23:23:37] Ironsides: placed ship (4, 1) Direction: v
+[23:24:18] Jenkins: placed ship (9, 8) Direction: h
+[23:24:22] Jenkins: placed ship (7, 5) Direction: d
+[23:24:26] Jenkins: placed ship (4, 4) Direction: d
+[23:24:29] Jenkins: placed ship (3, 5) Direction: h
+[23:24:33] Jenkins: placed ship (5, 1) Direction: v
+[23:24:54] Ironsides: chose attack
+[23:24:54] Ironsides: unsuccessful hit (9, 9)
+[23:25:00] Jenkins: using power-up
+[23:25:17] Ironsides: successful hit (5, 1)
+[23:25:17] Ironsides: chose attack
+[23:25:31] Jenkins: unsuccessful hit (5, 8)
+[23:25:31] Jenkins: chose attack
+[23:25:41] Ironsides: unsuccessful hit (4, 7)
+[23:25:41] Ironsides: chose attack
+[23:25:47] Jenkins: using powerup
+[23:25:51] Jenkins: successful hit (8, 5)
+[23:25:51] Jenkins: chose attack
+[23:26:12] Ironsides: using power-up
+[23:26:32] Jenkins: unsuccessful hit (2, 5)
+[23:26:32] Jenkins: chose attack
+[23:26:44] Ironsides: unsuccessful hit (1, 5)
+......... many moves later........
+[23:37:45] Ironsides: chose attack
+[23:37:52] Ironsides: successful hit (3, 7)
+[23:37:52] Ironsides: wins the game
+[23:37:52] Console: game terminated
