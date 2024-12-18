@@ -292,8 +292,8 @@ void Game::selectMode()
         cout << "1. Classic Battleship" << endl;
         cout << "2. Blitz Battleship" << endl;
         
-        while (!(cin >> choice)) 
-        {                  // Validate input
+        while (!(cin >> choice)) // Validating input 
+        {                  
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
             cout << "Invalid input. Please enter an integer."<<endl;
@@ -301,14 +301,14 @@ void Game::selectMode()
         
         if (choice == 1) 
         {
-            blitzMode = false;                      // Classic mode
+            blitzMode = false;                      // Player has selected Classic mode
             cout << "You have selected 'Classic Battleship' mode." << endl;
             event("classic mode was selected");
         } 
         
         else if (choice == 2) 
         {
-            blitzMode = true;                       // Blitz mode
+            blitzMode = true;                       //  Player has selected Blitz mode
             cout << "You have selected 'Blitz Battleship' mode." << endl;
             event("blitz mode was selected");
         } 
@@ -320,7 +320,8 @@ void Game::selectMode()
     
     }
     
-    while (choice != 1 && choice != 2);
+    while (choice != 1 && choice != 2); // Making sure that a gamemode is selected before continuing along
+
     cout << endl;
 }
 
@@ -355,17 +356,19 @@ bool Game::isValidPlacement(Player& player, int x, int y, int length, char direc
             if (player.grid[x + j][y + j] != WATER) return false; // Occupied cell
         }
     } 
+    
     else 
     {
         return false; // Invalid direction character
     }
+    
     return true; // Placement is valid
 }
 
 void Game::selectCaptain(Player*& player) 
 {
     // Delete old player and prompt user to pick a new captain
-    delete player;
+    delete player; // Memory Clearing
     bool check=true;
     int choice;
     cout <<"Choose your captain:" << endl;
@@ -373,33 +376,34 @@ void Game::selectCaptain(Player*& player)
     cout << "2. Old Ironsides (5 ships: 2,2,2,4,5)" << endl;
     cout << "3. Threeven Steven (5 ships: 3,3,3,3,3)" << endl;
         
-    while (check){
+    while (check)
+    {
         
-        while (!(cin >> choice)) 
-        {                   // Validate input
+        while (!(cin >> choice))  // Validate input
+        {                   
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
             cout << "Invalid input. Please enter an integer."<<endl;
         }
         
-        if (choice == 1) 
+        if (choice == 1)  // Pick Jenkins
         {
-            player = new Jenkins();                  // Pick Jenkins
-            player->shipLengths = {1, 2, 3, 4, 5};
+            player = new Jenkins();                  // Assigns current player to have the jenkins class
+            player->shipLengths = {1, 2, 3, 4, 5};   // Assigns the current player jenkins fleet
             check=false;
         } 
         
-        else if (choice == 2) 
+        else if (choice == 2) // Pick Ironsides
         {
-            player = new Ironsides();                // Pick Ironsides
-            player->shipLengths = {2, 2, 2, 4, 5};
+            player = new Ironsides();                // Assigns current player to have the ironsides class
+            player->shipLengths = {2, 2, 2, 4, 5};   // Assigns the current player ironsides fleet
             check=false;
         } 
         
         else if (choice == 3) 
         {
             player = new Steven();                   // Pick Steven
-            player->shipLengths = {3, 3, 3, 3, 3};
+            player->shipLengths = {3, 3, 3, 3, 3};   // Assigns the current player jenkins fleet
             check=false;
         } 
         
@@ -416,8 +420,8 @@ void Game::selectCaptain(Player*& player)
 void Game::printGrid(const vector<vector<char>>& grid) 
 {
     // Print the grid with formatting and indices
-    string spaces =R"(         )";
-    string bottomline=R"(________________________________________)";
+    string spaces =R"(         )"; // GUI Visual Formatting
+    string bottomline=R"(________________________________________)"; // GUI Visual Formatting
     cout<<bottomline<<endl;
     cout << "  "<<spaces;
     
@@ -440,17 +444,16 @@ void Game::printGrid(const vector<vector<char>>& grid)
     cout<<bottomline<<endl;
 }
 
-void Game::start() 
+void Game::start()  // The main game sequence: from setup to the turn-taking loop until someone wins
 {
     event("game initialized");
 
-    // The main game sequence: from setup to the turn-taking loop until someone wins
-    displayRules();                                 // Show rules first
+    displayRules(); // Show rules first                                // Show rules first
     
 
     // Players share the same map layout: first choose map for player1
     selectMap(player1->grid);
-    player2->grid = player1->grid;                  // Copy map to player2
+    player2->grid = player1->grid;  // Copy map to player2              
 
     // Choose captains for both players
     selectCaptain(player1);
@@ -461,15 +464,19 @@ void Game::start()
 
     // Player 1 places ships
     player1->placeShips(*this);
+    
+    // Handles the screen wipe after player 2 has finished placing their ships
     cout << "Ships placed please switch players" << endl;
-    this_thread::sleep_for(chrono::seconds(5));
+    this_thread::sleep_for(chrono::seconds(5)); // Gives time to hand over laptop
     cout << string(100, '\n');
     this_thread::sleep_for(chrono::seconds(5));
 
     // Player 2 places ships
     player2->placeShips(*this);
+
+    // Handles the screen wipe after player 2 has finished placing their ships
     cout << "Ships placed please switch players" << endl;
-    this_thread::sleep_for(chrono::seconds(5));
+    this_thread::sleep_for(chrono::seconds(5)); // Gives time to hand over laptop
     cout << string(100, '\n');
     this_thread::sleep_for(chrono::seconds(5));
 
@@ -500,9 +507,9 @@ void Game::start()
         )";
 
         cout << currentPlayer->name << "'s turn:" << endl;
-        cout<<yourself<<endl;                      // Print player's own grid
+        cout<<yourself<<endl;                      // Printing player's own grid
         printGrid(currentPlayer->grid);
-        cout << opponent<<endl;                    // Print player's guess grid of opponent
+        cout << opponent<<endl;                    // Printing player's guess grid of opponent
         printGrid(currentPlayer->guessGrid);
 
         while (!turnComplete) 
@@ -516,12 +523,13 @@ void Game::start()
                 cout << "Time's up! Switching turns." << endl; 
                 event("time limit reached, switching");
                 this_thread::sleep_for(chrono::seconds(5));
-                cout << string(50, '\n');
+                cout << string(100, '\n');
                 turnComplete = true;
                 break;
             }
 
             cout << "Enter 'a' to attack or 'p' to use your power-up: " << endl;
+            
             char action;
             if (!timedInput(action, blitzMode, startTime)) 
             {
@@ -536,12 +544,13 @@ void Game::start()
                 if (!currentPlayer->takeTurn(*this, *opponentPlayer, blitzMode, startTime)) 
                 {
                     // If attack invalid or repeated, retry unless time out
-                    currentTime = chrono::steady_clock::now();
-                    elapsedTime = chrono::duration_cast<chrono::seconds>(currentTime - startTime).count();
+                    currentTime = chrono::steady_clock::now(); //Blitz time tracking
+                    elapsedTime = chrono::duration_cast<chrono::seconds>(currentTime - startTime).count(); //Blitz time tracking
                     if (blitzMode && elapsedTime >= BLITZ_TIME_LIMIT) 
                     {
+                        // If out of time, switch turns
                         cout << "Time's up! Switching turns." << endl;
-                        event("time limit reached, switching");
+                        event("time limit reached, switching"); 
                         this_thread::sleep_for(chrono::seconds(5));
                         cout << string(100, '\n');
                         turnComplete = true;
@@ -560,10 +569,12 @@ void Game::start()
                 // Power-up action
                 if (!currentPlayer->usePowerUp(*this, *opponentPlayer, blitzMode, startTime)) 
                 {
-                    // If power-up failed (invalid or already used), check time and maybe retry
+                    // If power-up failed (invalid or already used), check time and maybe retry if time permits
                     currentTime = chrono::steady_clock::now();
                     elapsedTime = chrono::duration_cast<chrono::seconds>(currentTime - startTime).count();
-                    if (blitzMode && elapsedTime >= BLITZ_TIME_LIMIT) {
+                    if (blitzMode && elapsedTime >= BLITZ_TIME_LIMIT) 
+                    {
+                         // If out of time, switch turns
                         cout << "Time's up! Switching turns." << endl;
                         event("time limit reached, switching");
                         cout << string(50, '\n');
@@ -592,6 +603,8 @@ void Game::start()
                 elapsedTime = chrono::duration_cast<chrono::seconds>(currentTime - startTime).count();
                 if (elapsedTime >= BLITZ_TIME_LIMIT) 
                 {
+
+                     // If out of time, switch turns
                     cout << "Time's up! Switching turns." << endl;
                     event("time limit reached, switching");
                     this_thread::sleep_for(chrono::seconds(5));
@@ -609,6 +622,7 @@ void Game::start()
         // Check if opponent is defeated
         if (opponentPlayer->allShipsSunk()) 
         {
+            // Announcing the winner 
             cout << currentPlayer->name << " wins! All opponent ships have been sunk." << endl;
             event("has won the game", currentPlayer->name);
             event("game is now terminated");
@@ -630,8 +644,6 @@ void Game::start()
 
 }
 
-// ========== Player and Subclass Methods ==========
-
 void Player::placeShips(Game& game) 
 {
     // Prompt the player to place each ship
@@ -643,8 +655,8 @@ void Player::placeShips(Game& game)
         bool shipPlaced = false;
         while (!shipPlaced) 
         {
-            int x, y;
-            char direction;
+            int x, y; // Starting cords
+            char direction; // Placement Direction
             cout << "Enter starting coordinates to place ship " << i + 1 << " of length " << length
                  << " (row and column), and direction (h/v/d): " << endl;
             while (!(cin >> x >> y >> direction)) 
@@ -696,7 +708,7 @@ void Player::placeShips(Game& game)
     }
 }
 
-bool Player::allShipsSunk() const 
+bool Player::allShipsSunk() const // used to determine if the game has ended
 {
     // Check grid for any 'S' cells left
     for (const auto& row : grid) 
@@ -709,6 +721,7 @@ bool Player::allShipsSunk() const
             }
         }
     }
+
     return true; // No ship cells found
 }
 
@@ -729,7 +742,7 @@ bool Player::takeTurn(Game& game, Player& opponent, bool blitzMode, chrono::stea
     }
 
     // Check what is at that coordinate on the opponent's grid
-    if (opponent.grid[x][y] == SHIP) 
+    if (opponent.grid[x][y] == SHIP) // You scored a hit
     {
         cout << "It's a hit!" << endl;
         opponent.grid[x][y] = HIT;
@@ -738,7 +751,7 @@ bool Player::takeTurn(Game& game, Player& opponent, bool blitzMode, chrono::stea
         return true; // Turn completes successfully
     } 
     
-    else if (opponent.grid[x][y] == WATER) 
+    else if (opponent.grid[x][y] == WATER)  // You missed the shot
     {
         cout << "You missed." << endl;
         opponent.grid[x][y] = MISS;
@@ -749,7 +762,7 @@ bool Player::takeTurn(Game& game, Player& opponent, bool blitzMode, chrono::stea
     
     else 
     {
-        // Already attacked cell (HIT or MISS)
+        // Already attacked cell (HIT, MISS, or ISLAND)
         cout << "You already attacked this position. Try again." << endl;
         return false; // Must re-enter coordinates
     }
@@ -775,6 +788,7 @@ bool Jenkins::usePowerUp(Game& game, Player& opponent, bool blitzMode, chrono::s
     if (!game.timedInput(y, blitzMode, startTime)) return true; // If time out, turn ends
 
     // Check a 3x3 block centered at (x,y)
+    
     for (int i = -1; i <= 1; ++i) 
     {
         for (int j = -1; j <= 1; ++j) 
@@ -817,12 +831,12 @@ bool Ironsides::usePowerUp(Game& game, Player& opponent, bool blitzMode, chrono:
 
     char choice;
     int index;
-    cout << "Enter 'r' to search an entire row or 'c' to search an entire column: " << endl;
+    cout << "Enter 'r' to search an entire row or 'c' to search an entire column: " << endl; // Allows the player to choose between attacking a row or column
     if (!game.timedInput(choice, blitzMode, startTime)) return true;
     cout << "Enter the index of the row or column to search (0 to " << GRID_SIZE - 1 << "): " << endl;
     if (!game.timedInput(index, blitzMode, startTime)) return true;
 
-    // Perform row or column scan
+    // Perform row scan
     if (choice == 'r' && index >= 0 && index < GRID_SIZE) 
     {
         for (int j = 0; j < GRID_SIZE; ++j) 
@@ -842,6 +856,7 @@ bool Ironsides::usePowerUp(Game& game, Player& opponent, bool blitzMode, chrono:
         }
     } 
     
+    // Perform column scan
     else if (choice == 'c' && index >= 0 && index < GRID_SIZE) 
     {
         for (int i = 0; i < GRID_SIZE; ++i) 
